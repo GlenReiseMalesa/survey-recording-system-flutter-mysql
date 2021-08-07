@@ -1,6 +1,8 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:sand_survey/insight.dart';
+import 'package:sand_survey/survey.dart';
 
 class dashboard extends StatefulWidget {
   const dashboard({Key? key}) : super(key: key);
@@ -55,12 +57,22 @@ class _dashboardState extends State<dashboard> {
                 children: [Text("9800"), Text("Total")],
               )
             ]),
-            Text("FIND OUT MORE"),
+
+            FlatButton(
+              onPressed: () => {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => insight())),
+              },
+              child: Text("FIND OUT MORE"),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => survey())),
+        },
         child: Icon(Icons.add),
       ),
     );
