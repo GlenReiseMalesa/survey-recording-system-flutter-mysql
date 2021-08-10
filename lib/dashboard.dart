@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:sand_survey/insight.dart';
@@ -41,20 +42,51 @@ class _dashboardState extends State<dashboard> {
             Row(
               //this is the first stuff in the
               children: [
-                Icon(Icons.camera_alt_rounded),
+                Icon(Icons.person_add_alt_1_rounded),
                 Column(children: [
-                  (Text("Data Overview")),
-                  Text("Completed Surveys")
+                  (Text(
+                    "Data Overview",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+                  Text(
+                    "Completed Surveys",
+                    style: TextStyle(
+                        fontSize: 14, color: Color.fromRGBO(0, 0, 0, 0.87)),
+                  )
                 ])
               ],
             ),
             //totals and dates
             Row(children: [
               Column(
-                children: [Text("2"), Text("Last & Days")],
+                children: [
+                  Text(
+                    "2",
+                    style: TextStyle(
+                      fontSize: 96,
+                    ),
+                  ),
+                  Text(
+                    "Last 7 Days",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
               Column(
-                children: [Text("9800"), Text("Total")],
+                children: [
+                  Text(
+                    "9800",
+                    style: TextStyle(
+                      fontSize: 60,
+                    ),
+                  ),
+                  Text("Total",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                ],
               )
             ]),
 
@@ -63,12 +95,17 @@ class _dashboardState extends State<dashboard> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => insight())),
               },
-              child: Text("FIND OUT MORE"),
+              child: Text("FIND OUT MORE",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple)),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.greenAccent,
         onPressed: () => {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => survey())),
