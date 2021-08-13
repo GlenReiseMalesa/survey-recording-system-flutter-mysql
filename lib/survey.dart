@@ -24,9 +24,17 @@ class _surveyState extends State<survey> {
       body: Center(
         child: Column(
           children: [
-            Text("Household Survey"),
             Text(
-                "Please capture all relevant information for each household using the fields below"),
+              "Household Survey",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+                "Please capture all relevant information for each household using the fields below",
+                style: TextStyle(
+                    fontSize: 14, color: Color.fromRGBO(0, 0, 0, 0.87))),
 
             //the form capture functionality
             Form(
@@ -34,7 +42,12 @@ class _surveyState extends State<survey> {
               child: Column(
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(hintText: 'First name'),
+                    decoration: InputDecoration(
+                      hintText: 'First name',
+                      filled: true,
+                      fillColor: Colors.grey,
+                      contentPadding: const EdgeInsets.all(8),
+                    ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'First name as per identity document';
@@ -44,7 +57,11 @@ class _surveyState extends State<survey> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        hintText: 'Number of persons in household'),
+                      hintText: 'Number of persons in household',
+                      filled: true,
+                      fillColor: Colors.grey,
+                      contentPadding: const EdgeInsets.all(8),
+                    ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return 'How many people are currently living with you?';
@@ -61,6 +78,9 @@ class _surveyState extends State<survey> {
                     ],
                   ),
                   ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(120, 40),
+                      ),
                       onPressed: () {
                         //validate
                         if (_formKey.currentState!.validate()) {}
@@ -71,10 +91,16 @@ class _surveyState extends State<survey> {
             ),
 
             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(120, 40),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    primary: Colors.white,
+                    side: BorderSide(color: Colors.purple, width: 2)),
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Cancel"))
+                child: Text("Cancel", style: TextStyle(color: Colors.purple)))
           ],
         ),
       ),
