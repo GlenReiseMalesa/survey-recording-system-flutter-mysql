@@ -20,19 +20,22 @@ class _dashboardState extends State<dashboard> {
         leading: Icon(
           Icons.menu,
           color: Colors.white,
-          size: 30,
+          size: 20,
         ),
-        title: Text("Dashboard"),
+        title: Text("Dashboard",
+            style: TextStyle(
+              fontSize: 14,
+            )),
         actions: [
           Icon(
             Icons.notifications,
             color: Colors.white,
-            size: 30,
+            size: 20,
           )
         ],
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height * 0.5,
+        height: MediaQuery.of(context).size.height * 0.44,
         width: MediaQuery.of(context).size.width * 0.8,
         margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
         color: Colors.white70,
@@ -42,64 +45,82 @@ class _dashboardState extends State<dashboard> {
             Row(
               //this is the first stuff in the
               children: [
-                Icon(Icons.person_add_alt_1_rounded),
-                Column(children: [
-                  (Text(
-                    "Data Overview",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                Container(
+                  margin: EdgeInsets.all(5),
+                  child: Icon(Icons.portrait_rounded, size: 30),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Column(children: [
+                    Text(
+                      "Data Overview",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  )),
-                  Text(
-                    "Completed Surveys",
-                    style: TextStyle(
-                        fontSize: 14, color: Color.fromRGBO(0, 0, 0, 0.87)),
-                  )
-                ])
+                    Text(
+                      "Completed Surveys",
+                      style: TextStyle(
+                          fontSize: 11, color: Color.fromRGBO(0, 0, 0, 0.87)),
+                    ),
+                  ]),
+                ),
               ],
             ),
             //totals and dates
             Row(children: [
-              Column(
-                children: [
-                  Text(
-                    "2",
-                    style: TextStyle(
-                      fontSize: 96,
+              Container(
+                margin:
+                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.05),
+                child: Column(
+                  children: [
+                    Text(
+                      "2",
+                      style: TextStyle(
+                        fontSize: 45,
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Last 7 Days",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  )
-                ],
+                    Text(
+                      "Last 7 Days",
+                      style: TextStyle(
+                        fontSize: 11,
+                      ),
+                    )
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Text(
-                    "9800",
-                    style: TextStyle(
-                      fontSize: 60,
+              Container(
+                margin: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.15,
+                  top: MediaQuery.of(context).size.height * 0.03,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "9800",
+                      style: TextStyle(
+                        fontSize: 35,
+                      ),
                     ),
-                  ),
-                  Text("Total",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-                ],
-              )
+                    Text("Total", style: TextStyle(fontSize: 10))
+                  ],
+                ),
+              ),
             ]),
-
-            FlatButton(
-              onPressed: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => insight())),
-              },
-              child: Text("FIND OUT MORE",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.purple)),
+            Container(
+              margin: EdgeInsets.only(
+                right: 110,
+                top: 30,
+              ),
+              child: FlatButton(
+                onPressed: () => {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => insight())),
+                },
+                child: Text("FIND OUT MORE",
+                    style: TextStyle(fontSize: 11, color: Colors.purple)),
+              ),
             ),
           ],
         ),
@@ -110,7 +131,7 @@ class _dashboardState extends State<dashboard> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => survey())),
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.add, size: 20),
       ),
     );
   }
