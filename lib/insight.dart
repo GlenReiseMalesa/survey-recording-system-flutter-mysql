@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 class insight extends StatefulWidget {
   const insight({Key? key}) : super(key: key);
@@ -8,6 +11,26 @@ class insight extends StatefulWidget {
 }
 
 class _insightState extends State<insight> {
+  Future getData() async {
+    Uri url = Uri.parse("http://localhost/phpsandbox/surveyApp/FetchData.php");
+    http.Response res = await http.get(url);
+
+    var data = json.decode(res.body);
+    // var dataModel = [];
+
+    // dataModel.add("value");
+    // for (var word in data['result']) {
+    //   String id = word['id'];
+    //   String name = word['name'];
+    //   String pass = word['pass'];
+
+    //   dataModel.add(new Model( id, name, pass));
+    // }
+    //amount of data
+    print("OUR FULL LENGTH " + data['result'].length.toString());
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
