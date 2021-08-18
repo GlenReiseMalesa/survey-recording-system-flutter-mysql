@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class survey extends StatefulWidget {
   const survey({Key? key}) : super(key: key);
@@ -9,6 +10,19 @@ class survey extends StatefulWidget {
 
 class _surveyState extends State<survey> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+// Getting value from TextField widget.
+  final nameController = TextEditingController();
+  final personController = TextEditingController();
+
+  var hasforeignresident = "false";
+
+  void SaveData(var name, var isforeign, var npersons) async {
+    Uri url = Uri.parse('http://localhost/phpsandbox/surveyApp/Insert.php');
+
+    var data = {"names": name, "foreigners": isforeign, "persons": npersons};
+    var res = await http.post(url, body: data);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +66,7 @@ class _surveyState extends State<survey> {
                       top: MediaQuery.of(context).size.height * 0.1,
                     ),
                     child: TextFormField(
+                      controller: nameController,
                       decoration: InputDecoration(
                         hintText: 'First name',
                         hintStyle: TextStyle(
@@ -78,6 +93,7 @@ class _surveyState extends State<survey> {
                       top: MediaQuery.of(context).size.height * 0.05,
                     ),
                     child: TextFormField(
+                      controller: personController,
                       decoration: InputDecoration(
                         hintText: 'Number of persons in household',
                         hintStyle: TextStyle(
@@ -100,7 +116,7 @@ class _surveyState extends State<survey> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 1.0,
-                    child: Row(
+                    child: Column(
                       children: [
                         Container(
                             width: MediaQuery.of(context).size.width * 0.7,
@@ -110,12 +126,24 @@ class _surveyState extends State<survey> {
                             child: Text(
                                 "There are undocumented foreigners in our household",
                                 style: TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 15,
                                 ))),
                         Container(
-                          width: 5,
+                          margin: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.height * 0.3,
+                          ),
                           child: IconButton(
-                              onPressed: () {}, icon: Icon(Icons.check_box)),
+                              onPressed: () {
+                                if (hasforeignresident == "false") {
+                                  hasforeignresident = "true";
+                                } else {
+                                  hasforeignresident = "false";
+                                }
+                              },
+                              icon: Icon(
+                                Icons.check_box,
+                                size: 30,
+                              )),
                         ),
                       ],
                     ),
@@ -131,7 +159,11 @@ class _surveyState extends State<survey> {
                         ),
                         onPressed: () {
                           //validate
-                          if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            var name = nameController.text;
+                            var nPersons = personController.text;
+                            SaveData(name, hasforeignresident, nPersons);
+                          }
                         },
                         child: Text("Submit")),
                   )

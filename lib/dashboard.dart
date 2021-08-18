@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:sand_survey/insight.dart';
 import 'package:sand_survey/survey.dart';
 
+import 'package:http/http.dart' as http;
+
 class dashboard extends StatefulWidget {
   const dashboard({Key? key}) : super(key: key);
 
@@ -13,6 +15,22 @@ class dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<dashboard> {
+  // Future getData() async {
+  //   Uri url = Uri.parse("http://localhost/phpsandbox/surveyApp/FetchData.php");
+  //   http.Response res = await http.get(url);
+
+  //   // var data = jsonDecode(res.body);
+
+  //   // for (var word in data['result']) {
+  //   //   String id = word['id'];
+  //   //   String name = word['name'];
+  //   //   String pass = word['pass'];
+
+  //   //   dataModel.add(new Model(id, name, pass));
+  //   // }
+  //   print("OUR FULL LENGTH" + res.body.length.toString());
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
