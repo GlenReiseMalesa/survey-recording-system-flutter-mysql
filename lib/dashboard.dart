@@ -16,24 +16,30 @@ class dashboard extends StatefulWidget {
   _dashboardState createState() => _dashboardState();
 }
 
+int nPeople = 0;
+
 class _dashboardState extends State<dashboard> {
   Future getData() async {
     Uri url = Uri.parse("http://localhost/phpsandbox/surveyApp/FetchData.php");
     http.Response res = await http.get(url);
 
     var data = json.decode(res.body);
-    // var dataModel = [];
 
-    // dataModel.add("value");
-    // for (var word in data['result']) {
-    //   String id = word['id'];
-    //   String name = word['name'];
-    //   String pass = word['pass'];
+    int nHouseHoldsWithForeigners = 0;
+    nPeople = 0;
 
-    //   dataModel.add(new Model( id, name, pass));
-    // }
-    //amount of data
-    // print("OUR FULL LENGTH " + data['result'].length.toString());
+    for (var word in data['result']) {
+      String strName = word['name'];
+      String strIsForeigner = word['foreigner'];
+      String strPerson = word['person'];
+
+      //the total number of people in all residences
+      nPeople += int.parse(strPerson);
+    }
+
+    setState(() {
+      nPeople = nPeople;
+    });
     return null;
   }
 
@@ -128,7 +134,7 @@ class _dashboardState extends State<dashboard> {
                 child: Column(
                   children: [
                     Text(
-                      "9800",
+                      nPeople.toString(),
                       style: TextStyle(
                         fontSize: 35,
                       ),
@@ -159,7 +165,8 @@ class _dashboardState extends State<dashboard> {
         backgroundColor: Colors.greenAccent,
         onPressed: () => {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => survey())),
+                  context, MaterialPageRoute(builder: (context) => survey()))
+              .then((value) => getData())
         },
         child: Icon(Icons.add, size: 20),
       ),

@@ -10,29 +10,56 @@ class insight extends StatefulWidget {
   _insightState createState() => _insightState();
 }
 
+//average people
+int avePeople = 0;
+int percentageHouseholdsIsForeign = 0;
+
 class _insightState extends State<insight> {
   Future getData() async {
     Uri url = Uri.parse("http://localhost/phpsandbox/surveyApp/FetchData.php");
     http.Response res = await http.get(url);
 
+    int nPeople = 0;
+    int nHouseHoldsWithForeigners = 0;
     var data = json.decode(res.body);
-    // var dataModel = [];
 
-    // dataModel.add("value");
-    // for (var word in data['result']) {
-    //   String id = word['id'];
-    //   String name = word['name'];
-    //   String pass = word['pass'];
+    for (var word in data['result']) {
+      String strName = word['name'];
+      String strIsForeigner = word['foreigner'];
+      String strPerson = word['person'];
 
-    //   dataModel.add(new Model( id, name, pass));
-    // }
+      if (strIsForeigner == "true") {
+        nHouseHoldsWithForeigners += 1;
+      }
+      //the total number of people in all residences
+      nPeople += int.parse(strPerson);
+    }
+
+    setState(() {
+      avePeople = (nPeople / data['result'].length).toInt();
+
+      percentageHouseholdsIsForeign =
+          ((nHouseHoldsWithForeigners / data['result'].length) * 100).toInt();
+    });
+
     //amount of data
+    print("TOTAL " + nPeople.toString());
+    print("PERCENTAGE " + percentageHouseholdsIsForeign.toString());
+    print("AVERAGE " + avePeople.toString());
     print("OUR FULL LENGTH " + data['result'].length.toString());
+
     return null;
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  // }
+
   @override
   Widget build(BuildContext context) {
+    getData();
     return Scaffold(
       appBar: AppBar(
         leading: Icon(
@@ -81,8 +108,8 @@ class _insightState extends State<insight> {
                   top: MediaQuery.of(context).size.height * 0.1),
               child: Column(
                 children: [
-                  Text(
-                    "4",
+                  new Text(
+                    avePeople.toString(),
                     style: TextStyle(
                       fontSize: 30,
                     ),
@@ -94,7 +121,7 @@ class _insightState extends State<insight> {
                     margin: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.05),
                     child: Text(
-                      "20%",
+                      percentageHouseholdsIsForeign.toString() + "%",
                       style: TextStyle(
                         fontSize: 30,
                       ),
