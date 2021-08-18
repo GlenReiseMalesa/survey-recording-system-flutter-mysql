@@ -18,7 +18,8 @@ class _insightState extends State<insight> {
   Future getData() async {
     Uri url = Uri.parse("http://localhost/phpsandbox/surveyApp/FetchData.php");
     http.Response res = await http.get(url);
-
+    // int avePeople = 0;
+    // int percentageHouseholdsIsForeign = 0;
     int nPeople = 0;
     int nHouseHoldsWithForeigners = 0;
     var data = json.decode(res.body);

@@ -20,7 +20,12 @@ class _surveyState extends State<survey> {
   void SaveData(var name, var isforeign, var npersons) async {
     Uri url = Uri.parse('http://localhost/phpsandbox/surveyApp/Insert.php');
 
-    var data = {"names": name, "foreigners": isforeign, "persons": npersons};
+    var data = {
+      "names": name,
+      "foreigners": isforeign,
+      "persons": npersons,
+      "order_date": DateTime.now().toString()
+    };
     var res = await http.post(url, body: data);
   }
 
@@ -163,6 +168,8 @@ class _surveyState extends State<survey> {
                             var name = nameController.text;
                             var nPersons = personController.text;
                             SaveData(name, hasforeignresident, nPersons);
+
+                            Navigator.pop(context);
                           }
                         },
                         child: Text("Submit")),

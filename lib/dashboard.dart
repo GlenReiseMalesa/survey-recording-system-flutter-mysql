@@ -17,6 +17,7 @@ class dashboard extends StatefulWidget {
 }
 
 int nPeople = 0;
+String nSurveysTaken = "";
 
 class _dashboardState extends State<dashboard> {
   Future getData() async {
@@ -43,10 +44,27 @@ class _dashboardState extends State<dashboard> {
     return null;
   }
 
+  Future getLast7DaysData() async {
+    Uri url = Uri.parse(
+        "http://localhost/phpsandbox/surveyApp/FetchLast7DaysData.php");
+    http.Response res = await http.get(url);
+
+    var data = json.decode(res.body);
+    nSurveysTaken = "";
+
+    setState(() {
+      nSurveysTaken = data['result'].length.toString();
+    });
+
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+
+    getLast7DaysData();
   }
 
   @override
@@ -112,7 +130,7 @@ class _dashboardState extends State<dashboard> {
                 child: Column(
                   children: [
                     Text(
-                      "2",
+                      nSurveysTaken,
                       style: TextStyle(
                         fontSize: 45,
                       ),
