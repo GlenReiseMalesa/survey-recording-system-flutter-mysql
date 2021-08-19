@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:sizer/sizer.dart';
 
 class insight extends StatefulWidget {
   const insight({Key? key}) : super(key: key);
@@ -63,46 +64,47 @@ class _insightState extends State<insight> {
     getData();
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 6.h,
         leading: Icon(
           Icons.menu,
           color: Colors.white,
-          size: 20,
+          size: 25.sp,
         ),
         title: Text("View Insights",
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 15.sp,
             )),
         actions: [
           Icon(
             Icons.share,
             color: Colors.white,
-            size: 20,
+            size: 25.sp,
           )
         ],
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height * 0.9,
-        width: MediaQuery.of(context).size.width * 0.9,
-        margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
+        height: 90.h,
+        width: 90.w,
+        margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h),
         child: Column(
           children: [
             Container(
               margin: EdgeInsets.only(
-                right: MediaQuery.of(context).size.width * 0.3,
+                right: 3.h,
                 bottom: 5,
               ),
               child: Text(
                 "Household Survey Data",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             Text(
               "Please capture all relevant information for each household using the fields below",
-              style:
-                  TextStyle(fontSize: 10, color: Color.fromRGBO(0, 0, 0, 0.87)),
+              style: TextStyle(
+                  fontSize: 10.sp, color: Color.fromRGBO(0, 0, 0, 0.87)),
             ),
             Container(
               margin: EdgeInsets.only(
@@ -112,31 +114,29 @@ class _insightState extends State<insight> {
                   new Text(
                     avePeople.toString(),
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: 30.sp,
                     ),
                   ),
                   Text("Average number of people in a household",
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          fontSize: 10.sp, fontWeight: FontWeight.bold)),
                   Container(
-                    margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.05),
+                    margin: EdgeInsets.only(top: 5.h),
                     child: Text(
                       percentageHouseholdsIsForeign.toString() + "%",
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 30.sp,
                       ),
                     ),
                   ),
                   Text("of households reported having undocumented foreigners",
-                      style:
-                          TextStyle(fontSize: 10, fontWeight: FontWeight.bold))
+                      style: TextStyle(
+                          fontSize: 10.sp, fontWeight: FontWeight.bold))
                 ],
               ),
             ),
             Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.15),
+              margin: EdgeInsets.only(top: 5.h),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       fixedSize: Size(100, 20),

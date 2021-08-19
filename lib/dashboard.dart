@@ -8,6 +8,7 @@ import 'package:sand_survey/insight.dart';
 import 'package:sand_survey/survey.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:sizer/sizer.dart';
 
 class dashboard extends StatefulWidget {
   const dashboard({Key? key}) : super(key: key);
@@ -29,17 +30,19 @@ class _dashboardState extends State<dashboard> {
     int nHouseHoldsWithForeigners = 0;
     nPeople = 0;
 
+    int nP = 0;
+
     for (var word in data['result']) {
       String strName = word['name'];
       String strIsForeigner = word['foreigner'];
       String strPerson = word['person'];
 
       //the total number of people in all residences
-      nPeople += int.parse(strPerson);
+      nP += int.parse(strPerson);
     }
 
     setState(() {
-      nPeople = nPeople;
+      nPeople = nP;
     });
     return null;
   }
@@ -71,27 +74,28 @@ class _dashboardState extends State<dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 6.h,
         leading: Icon(
           Icons.menu,
           color: Colors.white,
-          size: 20,
+          size: 25.0.sp,
         ),
         title: Text("Dashboard",
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 15.0.sp,
             )),
         actions: [
           Icon(
             Icons.notifications,
             color: Colors.white,
-            size: 20,
+            size: 25.0.sp,
           )
         ],
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height * 0.44,
-        width: MediaQuery.of(context).size.width * 0.8,
-        margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
+        height: 60.0.h,
+        width: 90.0.w,
+        margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h, bottom: 5.h),
         color: Colors.white70,
         child: Column(
           //working on the main thing
@@ -100,23 +104,24 @@ class _dashboardState extends State<dashboard> {
               //this is the first stuff in the
               children: [
                 Container(
-                  margin: EdgeInsets.all(5),
-                  child: Icon(Icons.portrait_rounded, size: 30),
+                  margin: EdgeInsets.all(5.sp),
+                  child: Icon(Icons.portrait_rounded, size: 25.0.sp),
                 ),
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.all(10.sp),
                   child: Column(children: [
                     Text(
                       "Data Overview",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       "Completed Surveys",
                       style: TextStyle(
-                          fontSize: 11, color: Color.fromRGBO(0, 0, 0, 0.87)),
+                          fontSize: 11.sp,
+                          color: Color.fromRGBO(0, 0, 0, 0.87)),
                     ),
                   ]),
                 ),
@@ -125,47 +130,43 @@ class _dashboardState extends State<dashboard> {
             //totals and dates
             Row(children: [
               Container(
-                margin:
-                    EdgeInsets.all(MediaQuery.of(context).size.height * 0.05),
+                margin: EdgeInsets.all(10.sp),
                 child: Column(
                   children: [
                     Text(
                       nSurveysTaken,
                       style: TextStyle(
-                        fontSize: 45,
+                        fontSize: 45.sp,
                       ),
                     ),
                     Text(
                       "Last 7 Days",
                       style: TextStyle(
-                        fontSize: 11,
+                        fontSize: 11.sp,
                       ),
                     )
                   ],
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.15,
-                  top: MediaQuery.of(context).size.height * 0.03,
-                ),
+                margin: EdgeInsets.only(left: 45.sp, top: 3.sp, right: 3.sp),
                 child: Column(
                   children: [
                     Text(
                       nPeople.toString(),
                       style: TextStyle(
-                        fontSize: 35,
+                        fontSize: 35.sp,
                       ),
                     ),
-                    Text("Total", style: TextStyle(fontSize: 10))
+                    Text("Total", style: TextStyle(fontSize: 10.sp))
                   ],
                 ),
               ),
             ]),
             Container(
               margin: EdgeInsets.only(
-                right: 110,
-                top: 30,
+                right: 40.w,
+                top: 10.h,
               ),
               child: FlatButton(
                 onPressed: () => {
@@ -173,7 +174,7 @@ class _dashboardState extends State<dashboard> {
                       MaterialPageRoute(builder: (context) => insight())),
                 },
                 child: Text("FIND OUT MORE",
-                    style: TextStyle(fontSize: 11, color: Colors.purple)),
+                    style: TextStyle(fontSize: 11.sp, color: Colors.purple)),
               ),
             ),
           ],
@@ -184,7 +185,10 @@ class _dashboardState extends State<dashboard> {
         onPressed: () => {
           Navigator.push(
                   context, MaterialPageRoute(builder: (context) => survey()))
-              .then((value) => getData())
+              .then((value) {
+            getData();
+            getLast7DaysData();
+          })
         },
         child: Icon(Icons.add, size: 20),
       ),

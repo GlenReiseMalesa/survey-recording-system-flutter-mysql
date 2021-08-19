@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:sizer/sizer.dart';
 
 class survey extends StatefulWidget {
   const survey({Key? key}) : super(key: key);
@@ -33,32 +34,33 @@ class _surveyState extends State<survey> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 6.h,
         leading: Icon(
           Icons.menu,
           color: Colors.white,
-          size: 20,
+          size: 25.sp,
         ),
         title: Text("Capture Household Data",
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 15.sp,
             )),
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
-        margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
+        width: 80.w,
+        margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 5.h),
         child: Column(
           children: [
             Text(
               "Household Survey",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
                 "Please capture all relevant information for each household using the fields below",
                 style: TextStyle(
-                    fontSize: 10, color: Color.fromRGBO(0, 0, 0, 0.87))),
+                    fontSize: 10.sp, color: Color.fromRGBO(0, 0, 0, 0.87))),
 
             //the form capture functionality
             Form(
@@ -66,9 +68,9 @@ class _surveyState extends State<survey> {
               child: Column(
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
+                    width: 100.w,
                     margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.1,
+                      top: 2.h,
                     ),
                     child: TextFormField(
                       controller: nameController,
@@ -93,9 +95,9 @@ class _surveyState extends State<survey> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
+                    width: 100.w,
                     margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05,
+                      top: 2.h,
                     ),
                     child: TextFormField(
                       controller: personController,
@@ -120,22 +122,22 @@ class _surveyState extends State<survey> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
+                    width: 100.w,
                     child: Column(
                       children: [
                         Container(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: 70.w,
                             margin: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.05,
+                              top: 2.h,
                             ),
                             child: Text(
                                 "There are undocumented foreigners in our household",
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 12.sp,
                                 ))),
                         Container(
                           margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.height * 0.3,
+                            left: 3.h,
                           ),
                           child: IconButton(
                               onPressed: () {
@@ -147,7 +149,7 @@ class _surveyState extends State<survey> {
                               },
                               icon: Icon(
                                 Icons.check_box,
-                                size: 30,
+                                size: 15.sp,
                               )),
                         ),
                       ],
@@ -155,8 +157,8 @@ class _surveyState extends State<survey> {
                   ),
                   Container(
                     margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.1,
-                      bottom: MediaQuery.of(context).size.height * 0.02,
+                      top: 5.h,
+                      bottom: 2.h,
                     ),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
